@@ -1,0 +1,36 @@
+{"id":"F01","category":"new_faq_target","query":"Milvus 是什么？","expected_after_fix":"new_faq_or_rag","must_not_hit_legacy_faq":true,"observed_route":"RAG","observed_best_softmax":0.165251}
+{"id":"F02","category":"new_faq_target","query":"LangChain 是什么？","expected_after_fix":"new_faq_or_rag","must_not_hit_legacy_faq":true,"observed_route":"RAG","observed_best_softmax":0.165251}
+{"id":"F03","category":"new_faq_target","query":"BGE-M3 支持哪些向量？","expected_after_fix":"new_faq_or_rag","must_not_hit_legacy_faq":true,"observed_route":"RAG","observed_best_softmax":0.370638}
+{"id":"F04","category":"new_faq_target","query":"Hugging Face Transformers 的 pipeline 是什么？","expected_after_fix":"new_faq_or_rag","must_not_hit_legacy_faq":true,"observed_route":"RAG","observed_best_softmax":0.348394}
+{"id":"F05","category":"new_should_rag","query":"Milvus 怎么创建 Collection？","expected_after_fix":"rag","must_not_hit_legacy_faq":true,"observed_route":"RAG","observed_best_softmax":0.135893}
+{"id":"F06","category":"new_should_rag","query":"LangChain 如何加载 PDF 文档？","expected_after_fix":"rag","must_not_hit_legacy_faq":true,"observed_route":"RAG","observed_best_softmax":0.240120}
+{"id":"F07","category":"new_should_rag","query":"BGE-M3 的 dense 向量维度是多少？","expected_after_fix":"rag","must_not_hit_legacy_faq":true,"observed_route":"RAG","observed_best_softmax":0.143756}
+{"id":"F08","category":"new_should_rag","query":"Transformers 训练时 OOM 怎么办？","expected_after_fix":"rag","must_not_hit_legacy_faq":true,"observed_route":"FAQ_HIT","observed_best_softmax":0.908909,"observed_match":"mysql5.7 忘记 root 密码怎么办？"}
+{"id":"F09","category":"new_should_rag","query":"WeightedRanker 和 RRF 怎么选择？","expected_after_fix":"rag","must_not_hit_legacy_faq":true,"observed_route":"RAG","observed_best_softmax":0.165706}
+{"id":"F10","category":"new_should_rag","query":"Milvus 如何为标量字段建立索引？","expected_after_fix":"rag","must_not_hit_legacy_faq":true,"observed_route":"FAQ_HIT","observed_best_softmax":0.997252,"observed_match":"Mysql如何查询一个表中所有字段"}
+{"id":"F11","category":"old_course","query":"关联子查询的执行顺序是什么","expected_after_fix":"legacy_faq_if_retained_else_rag","must_not_hit_legacy_faq":false,"observed_route":"FAQ_HIT","observed_best_softmax":1.0}
+{"id":"F12","category":"old_course","query":"定义类字典对象(继承于dict类)，如何修改读写字典元素方法","expected_after_fix":"legacy_faq_if_retained_else_rag","must_not_hit_legacy_faq":false,"observed_route":"FAQ_HIT","observed_best_softmax":1.0}
+{"id":"F13","category":"old_course","query":"win10如何安装python虚拟环境以及爬虫环境","expected_after_fix":"legacy_faq_if_retained_else_rag","must_not_hit_legacy_faq":false,"observed_route":"FAQ_HIT","observed_best_softmax":1.0}
+{"id":"F14","category":"old_course","query":"pycharm专业版如何激活","expected_after_fix":"legacy_faq_if_retained_else_rag","must_not_hit_legacy_faq":false,"observed_route":"FAQ_HIT","observed_best_softmax":0.999998}
+{"id":"F15","category":"old_course","query":"redis存储类型里面提到的“string类型是二进制安全的","expected_after_fix":"legacy_faq_if_retained_else_rag","must_not_hit_legacy_faq":false,"observed_route":"FAQ_HIT","observed_best_softmax":1.0}
+{"id":"F16","category":"lexical_trap","query":"Milvus 中如何创建线程安全的单例对象？","expected_after_fix":"rag","must_not_hit_legacy_faq":true,"observed_route":"FAQ_HIT","observed_best_softmax":1.0,"observed_match":"如何创建线程安全的单例对象"}
+{"id":"F17","category":"lexical_trap","query":"Milvus 专业版如何激活？","expected_after_fix":"rag","must_not_hit_legacy_faq":true,"observed_route":"FAQ_HIT","observed_best_softmax":0.999937,"observed_match":"pycharm专业版如何激活"}
+{"id":"F18","category":"lexical_trap","query":"win10 如何安装 Milvus 虚拟环境以及 LangChain 环境","expected_after_fix":"rag","must_not_hit_legacy_faq":true,"observed_route":"FAQ_HIT","observed_best_softmax":1.0,"observed_match":"win10如何安装python虚拟环境以及爬虫环境"}
+{"id":"F19","category":"lexical_trap","query":"Milvus 中 GC 的垃圾回收算法是什么？","expected_after_fix":"rag","must_not_hit_legacy_faq":true,"observed_route":"FAQ_HIT","observed_best_softmax":1.0,"observed_match":"Python中GC的垃圾回收算法是什么？"}
+{"id":"F20","category":"lexical_trap","query":"Transformers 中 Python 的 GC 垃圾回收算法是什么？","expected_after_fix":"rag","must_not_hit_legacy_faq":true,"observed_route":"FAQ_HIT","observed_best_softmax":1.0,"observed_match":"Python中GC的垃圾回收算法是什么？"}
+{"id":"F21","category":"no_answer","query":"DevDocsRAG 的创始人是谁？","expected_after_fix":"rag_refusal","must_not_hit_legacy_faq":true,"observed_route":"RAG","observed_best_softmax":0.507174}
+{"id":"F22","category":"no_answer","query":"Milvus 的创始人是谁？","expected_after_fix":"rag_refusal","must_not_hit_legacy_faq":true,"observed_route":"RAG","observed_best_softmax":0.507174}
+{"id":"F23","category":"no_answer","query":"BGE-M3 的训练成本是多少？","expected_after_fix":"rag_refusal","must_not_hit_legacy_faq":true,"observed_route":"RAG","observed_best_softmax":0.181314}
+{"id":"F24","category":"no_answer","query":"公司今年的营收是多少？","expected_after_fix":"rag_refusal","must_not_hit_legacy_faq":true,"observed_route":"RAG","observed_best_softmax":0.222223}
+{"id":"F25","category":"new_should_rag_en","query":"How to create a collection in Milvus?","expected_after_fix":"rag","must_not_hit_legacy_faq":true,"observed_route":"RAG","observed_best_softmax":0.360624}
+{"id":"F26","category":"new_should_rag_en","query":"LangChain document loaders","expected_after_fix":"rag","must_not_hit_legacy_faq":true,"observed_route":"NO_RAG_BUG","observed_best_softmax":0.006938}
+{"id":"F27","category":"new_should_rag_en","query":"BGE-M3 embedding dimensions","expected_after_fix":"rag","must_not_hit_legacy_faq":true,"observed_route":"RAG","observed_best_softmax":0.100337}
+{"id":"F28","category":"new_should_rag_en","query":"Transformers pipeline tutorial","expected_after_fix":"rag","must_not_hit_legacy_faq":true,"observed_route":"NO_RAG_BUG","observed_best_softmax":0.006938}
+{"id":"F29","category":"new_should_rag_en","query":"Milvus index build parameters","expected_after_fix":"rag","must_not_hit_legacy_faq":true,"observed_route":"RAG","observed_best_softmax":0.526077}
+{"id":"F30","category":"new_should_rag_en","query":"vector database tutorial","expected_after_fix":"rag","must_not_hit_legacy_faq":true,"observed_route":"NO_RAG_BUG","observed_best_softmax":0.006938}
+{"id":"F31","category":"new_should_rag_en","query":"Hugging Face model download","expected_after_fix":"rag","must_not_hit_legacy_faq":true,"observed_route":"RAG","observed_best_softmax":0.452209}
+{"id":"F32","category":"new_should_rag_en","query":"what is a collection in milvus","expected_after_fix":"rag","must_not_hit_legacy_faq":true,"observed_route":"RAG","observed_best_softmax":0.381416}
+{"id":"F33","category":"new_should_rag_en","query":"how to install langchain","expected_after_fix":"rag","must_not_hit_legacy_faq":true,"observed_route":"RAG","observed_best_softmax":0.402695}
+{"id":"F34","category":"off_domain","query":"今天天气怎么样","expected_after_fix":"rag_refusal","must_not_hit_legacy_faq":true,"observed_route":"NO_RAG_BUG","observed_best_softmax":0.002141}
+{"id":"F35","category":"off_domain","query":"1+1等于几","expected_after_fix":"rag_refusal","must_not_hit_legacy_faq":true,"observed_route":"FAQ_HIT","observed_best_softmax":0.89167,"observed_match":"实现购物车加1 减1 会出现数量累加的问题"}
+{"id":"F36","category":"off_domain","query":"公司食堂几点开饭","expected_after_fix":"rag_refusal","must_not_hit_legacy_faq":true,"observed_route":"NO_RAG_BUG","observed_best_softmax":0.002141}

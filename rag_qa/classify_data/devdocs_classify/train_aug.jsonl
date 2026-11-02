@@ -1,0 +1,382 @@
+{"query": "Python 的 type hint 是什么？", "label": "通用知识"}
+{"query": "有道理", "label": "通用知识"}
+{"query": "LangChain 怎么安装指定版本？", "label": "专业咨询"}
+{"query": "晚上好", "label": "通用知识"}
+{"query": "怎么学习一门外语？", "label": "通用知识"}
+{"query": "什么是勾股数？", "label": "通用知识"}
+{"query": "什么是文件系统？", "label": "通用知识"}
+{"query": "什么是负载均衡？", "label": "通用知识"}
+{"query": "什么是 Docker？它和虚拟机的区别？", "label": "通用知识"}
+{"query": "那这个向量字段的索引怎么建？", "label": "专业咨询"}
+{"query": "什么是科学计数法？", "label": "通用知识"}
+{"query": "谢谢", "label": "通用知识"}
+{"query": "什么是 RESTful API？", "label": "通用知识"}
+{"query": "怎么练字？", "label": "通用知识"}
+{"query": "什么是深度学习？", "label": "通用知识"}
+{"query": "什么是消息队列？", "label": "通用知识"}
+{"query": "Transformers 的 batch inference 怎么做？", "label": "专业咨询"}
+{"query": "什么是加密和解密？", "label": "通用知识"}
+{"query": "什么是协程？", "label": "通用知识"}
+{"query": "Milvus 的一致性级别有哪些？", "label": "专业咨询"}
+{"query": "Milvus 怎么用正则表达式过滤？", "label": "专业咨询"}
+{"query": "什么是栈和队列？", "label": "通用知识"}
+{"query": "怎么搭一个 RAG 系统？", "label": "专业咨询"}
+{"query": "BGE-M3 的 dense 和 sparse 权重怎么融合？", "label": "专业咨询"}
+{"query": "什么是 JSON 格式？", "label": "通用知识"}
+{"query": "BGE-M3 支持多向量检索吗？", "label": "专业咨询"}
+{"query": "Python 的 lambda 是什么？", "label": "通用知识"}
+{"query": "什么是编译和解释？", "label": "通用知识"}
+{"query": "100 以内的质数有哪些？", "label": "通用知识"}
+{"query": "检索返回为空怎么办？", "label": "专业咨询"}
+{"query": "Milvus 的 release 操作是做什么的？", "label": "专业咨询"}
+{"query": "Transformers 怎么加载 LoRA 权重？", "label": "专业咨询"}
+{"query": "文档切分的最佳实践是什么？", "label": "专业咨询"}
+{"query": "斐波那契数列第 10 项是多少？", "label": "通用知识"}
+{"query": "Transformers 的 config.json 里有哪些关键字段？", "label": "专业咨询"}
+{"query": "怎么加载本地 BGE-M3 模型？", "label": "专业咨询"}
+{"query": "BGE-M3 支持哪些语言？", "label": "专业咨询"}
+{"query": "什么是 DNS？", "label": "通用知识"}
+{"query": "BGE-M3 的 max_length 参数怎么设置？", "label": "专业咨询"}
+{"query": "然后呢", "label": "通用知识"}
+{"query": "如何戒掉拖延症？", "label": "通用知识"}
+{"query": "什么是 API 网关？", "label": "通用知识"}
+{"query": "用 Python 写一个冒泡排序", "label": "通用知识"}
+{"query": "怎么处理长文档的切分？", "label": "专业咨询"}
+{"query": "怎么给 BGE-M3 传入 query 指令？", "label": "专业咨询"}
+{"query": "Milvus 报 collection not found 怎么排查？", "label": "专业咨询"}
+{"query": "BGE-M3 和 text-embedding 系列有什么区别？", "label": "专业咨询"}
+{"query": "什么是数据库事务？", "label": "通用知识"}
+{"query": "怎么用 Python 处理日期时间？", "label": "通用知识"}
+{"query": "你的名字是什么？", "label": "通用知识"}
+{"query": "LangChain 怎么创建一条 Chain？", "label": "专业咨询"}
+{"query": "LangChain 的文本分割器怎么设置 chunk_size？", "label": "专业咨询"}
+{"query": "怎么用正则表达式匹配邮箱？", "label": "通用知识"}
+{"query": "什么是缓存？", "label": "通用知识"}
+{"query": "Milvus 怎么做标量过滤查询？", "label": "专业咨询"}
+{"query": "LangChain 怎么加载 PDF 文档？", "label": "专业咨询"}
+{"query": "Milvus 怎么加载集合到内存？", "label": "专业咨询"}
+{"query": "怎么求两个数的最大公约数？", "label": "通用知识"}
+{"query": "怎么用 Python 读写文件？", "label": "通用知识"}
+{"query": "怎么给检索结果排序？", "label": "专业咨询"}
+{"query": "怎么评估 BGE-M3 的检索效果？", "label": "专业咨询"}
+{"query": "BGE-M3 的 batch_size 怎么调？", "label": "专业咨询"}
+{"query": "LangChain 的 langchain_core 和 langchain_community 有什么区别？", "label": "专业咨询"}
+{"query": "BGE-M3 和 bge-base 有什么区别？", "label": "专业咨询"}
+{"query": "Python 的装饰器怎么用？", "label": "通用知识"}
+{"query": "怎么并行处理一批文档？", "label": "专业咨询"}
+{"query": "Transformers 的 Trainer 怎么设置学习率？", "label": "专业咨询"}
+{"query": "LangChain 怎么给模型传 system prompt？", "label": "专业咨询"}
+{"query": "Transformers 的 token_type_ids 是什么？", "label": "专业咨询"}
+{"query": "什么是内存泄漏？", "label": "通用知识"}
+{"query": "LangChain 的 metadata 过滤怎么用？", "label": "专业咨询"}
+{"query": "怎么写一个简单的网页？", "label": "通用知识"}
+{"query": "它和另一个检索方案有什么区别？", "label": "专业咨询"}
+{"query": "Transformers 训练时报 OOM 怎么解决？", "label": "专业咨询"}
+{"query": "LangChain 里 Retriever 和 Chain 怎么组合？", "label": "专业咨询"}
+{"query": "什么是云计算？", "label": "通用知识"}
+{"query": "什么是虚拟内存？", "label": "通用知识"}
+{"query": "你能做什么？", "label": "通用知识"}
+{"query": "怎么把这个接口做成流式输出？", "label": "专业咨询"}
+{"query": "什么是设计模式？", "label": "通用知识"}
+{"query": "LangChain 怎么实现流式 token 输出？", "label": "专业咨询"}
+{"query": "LangChain 的 ChatOpenAI 怎么开启流式输出？", "label": "专业咨询"}
+{"query": "FlagEmbedding 和 sentence-transformers 是什么关系？", "label": "专业咨询"}
+{"query": "Milvus 怎么插入向量数据？", "label": "专业咨询"}
+{"query": "bge-reranker 怎么设置 top_n？", "label": "专业咨询"}
+{"query": "什么是机器学习？", "label": "通用知识"}
+{"query": "怎么用 Python 发 HTTP 请求？", "label": "通用知识"}
+{"query": "BGE-M3 在 GPU 上怎么用 fp16？", "label": "专业咨询"}
+{"query": "LangChain 的 prompt template 怎么定义？", "label": "专业咨询"}
+{"query": "怎么解析一个 CSV 文件？", "label": "通用知识"}
+{"query": "什么是 attention mask？", "label": "专业咨询"}
+{"query": "怎么算圆柱体体积？", "label": "通用知识"}
+{"query": "怎么给知识库做增量更新？", "label": "专业咨询"}
+{"query": "LangChain 怎么选择合适的 embedding 模型？", "label": "专业咨询"}
+{"query": "这个配置项在哪里改？", "label": "专业咨询"}
+{"query": "Transformers 怎么导出 onnx 模型？", "label": "专业咨询"}
+{"query": "一元二次方程怎么解？", "label": "通用知识"}
+{"query": "什么是主键和外键？", "label": "通用知识"}
+{"query": "HuggingFace 的 datasets 库怎么用？", "label": "专业咨询"}
+{"query": "今天天气怎么样？", "label": "通用知识"}
+{"query": "什么是动态规划？", "label": "通用知识"}
+{"query": "Python 的生成器是什么？", "label": "通用知识"}
+{"query": "你好", "label": "通用知识"}
+{"query": "BGE-M3 怎么生成稀疏向量？", "label": "专业咨询"}
+{"query": "在吗？", "label": "通用知识"}
+{"query": "什么是对数？", "label": "通用知识"}
+{"query": "LangChain 的 output parser 怎么用？", "label": "专业咨询"}
+{"query": "什么是多态？", "label": "通用知识"}
+{"query": "token 这个词是什么意思？", "label": "通用知识"}
+{"query": "Transformers 的 padding 和 truncation 怎么设置？", "label": "专业咨询"}
+{"query": "HuggingFace 怎么上传模型？", "label": "专业咨询"}
+{"query": "Milvus 的 alias 别名怎么用？", "label": "专业咨询"}
+{"query": "Milvus 连接超时怎么解决？", "label": "专业咨询"}
+{"query": "什么是排序算法？", "label": "通用知识"}
+{"query": "LangChain 的 retrievers 有哪些类型？", "label": "专业咨询"}
+{"query": "怎么用 git 撤销一次提交？", "label": "通用知识"}
+{"query": "什么是代码审查？", "label": "通用知识"}
+{"query": "怎么让模型只基于文档回答？", "label": "专业咨询"}
+{"query": "LangChain 的 runnable 和 chain 是什么关系？", "label": "专业咨询"}
+{"query": "如何缓解压力？", "label": "通用知识"}
+{"query": "怎么煮米饭？", "label": "通用知识"}
+{"query": "BGE-M3 支持自定义微调吗？", "label": "专业咨询"}
+{"query": "什么是时间复杂度？", "label": "通用知识"}
+{"query": "什么是无理数？", "label": "通用知识"}
+{"query": "怎么用 Transformers 生成文本？", "label": "专业咨询"}
+{"query": "怎么让检索支持中文？", "label": "专业咨询"}
+{"query": "Transformers 的 AutoModel.from_pretrained 怎么加载本地模型？", "label": "专业咨询"}
+{"query": "5 的阶乘是多少？", "label": "通用知识"}
+{"query": "如何管理时间？", "label": "通用知识"}
+{"query": "什么是垃圾回收？", "label": "通用知识"}
+{"query": "1024 乘以 768 等于多少？", "label": "通用知识"}
+{"query": "Transformers 的 pipeline 支持哪些任务？", "label": "专业咨询"}
+{"query": "BGE-M3 的 use_fp16 参数有什么用？", "label": "专业咨询"}
+{"query": "Milvus 怎么限制返回的 top-k 数量？", "label": "专业咨询"}
+{"query": "如何保持健康？", "label": "通用知识"}
+{"query": "Transformers 的 device_map 参数怎么用？", "label": "专业咨询"}
+{"query": "bge-reranker-v2-m3 和 bge-reranker-large 有什么区别？", "label": "专业咨询"}
+{"query": "LangChain 报 ModuleNotFoundError 怎么办？", "label": "专业咨询"}
+{"query": "IVF_FLAT 和 HNSW 索引怎么选？", "label": "专业咨询"}
+{"query": "git 怎么回退到上一个版本？", "label": "通用知识"}
+{"query": "什么是闭包？", "label": "通用知识"}
+{"query": "Python 怎么打包成可执行文件？", "label": "通用知识"}
+{"query": "你会说中文吗？", "label": "通用知识"}
+{"query": "推荐一部好看的电影", "label": "通用知识"}
+{"query": "怎么用 BGE 做中文检索？", "label": "专业咨询"}
+{"query": "什么是关系型和非关系型数据库？", "label": "通用知识"}
+{"query": "稠密检索和稀疏检索怎么选？", "label": "专业咨询"}
+{"query": "LangChain 怎么集成 Milvus？", "label": "专业咨询"}
+{"query": "怎么算平均值？", "label": "通用知识"}
+{"query": "多轮对话的历史怎么拼接？", "label": "专业咨询"}
+{"query": "Milvus 怎么用 Docker 部署？", "label": "专业咨询"}
+{"query": "Transformers 的 model card 是什么？", "label": "专业咨询"}
+{"query": "什么是命名空间？", "label": "通用知识"}
+{"query": "重排序模型应该怎么用？", "label": "专业咨询"}
+{"query": "什么是哈希冲突？", "label": "通用知识"}
+{"query": "根号 16 是多少？", "label": "通用知识"}
+{"query": "什么是网络协议？", "label": "通用知识"}
+{"query": "你是真人吗？", "label": "通用知识"}
+{"query": "怎么避免大模型幻觉？", "label": "专业咨询"}
+{"query": "LangChain 的 callback 怎么用？", "label": "专业咨询"}
+{"query": "LangChain 的 Agent 怎么绑定工具？", "label": "专业咨询"}
+{"query": "什么是上下文管理器？", "label": "通用知识"}
+{"query": "多线程和多进程有什么区别？", "label": "通用知识"}
+{"query": "什么是死锁？", "label": "通用知识"}
+{"query": "怎么评估 reranker 的效果？", "label": "专业咨询"}
+{"query": "什么是区块链？", "label": "通用知识"}
+{"query": "来点正能量", "label": "通用知识"}
+{"query": "怎么算复利？", "label": "通用知识"}
+{"query": "Milvus 怎么做多路检索融合？", "label": "专业咨询"}
+{"query": "MilvusClient 的 hybrid_search 参数怎么传？", "label": "专业咨询"}
+{"query": "数据库三大范式是什么？", "label": "通用知识"}
+{"query": "怎么用 Transformers 做命名实体识别？", "label": "专业咨询"}
+{"query": "什么是分布式系统？", "label": "通用知识"}
+{"query": "Milvus 的 partition key 是什么？", "label": "专业咨询"}
+{"query": "SQL 怎么查询重复记录？", "label": "通用知识"}
+{"query": "怎么处理文本数据？", "label": "通用知识"}
+{"query": "什么是面向对象编程？", "label": "通用知识"}
+{"query": "父块和子块切分有什么区别？", "label": "专业咨询"}
+{"query": "向量检索怎么加速？", "label": "专业咨询"}
+{"query": "Milvus 查询很慢怎么优化？", "label": "专业咨询"}
+{"query": "怎么把 BGE-M3 的向量写入 Milvus？", "label": "专业咨询"}
+{"query": "LangChain 做 RAG 的完整流程是什么？", "label": "专业咨询"}
+{"query": "什么是搜索算法？", "label": "通用知识"}
+{"query": "什么是勾股定理？", "label": "通用知识"}
+{"query": "BGE-M3 的归一化是什么意思？", "label": "专业咨询"}
+{"query": "怎么判断两个文档是否相似？", "label": "专业咨询"}
+{"query": "辛苦了", "label": "通用知识"}
+{"query": "BGE-M3 的 dense 向量维度是多少？", "label": "专业咨询"}
+{"query": "Milvus 怎么启用 GPU 加速？", "label": "专业咨询"}
+{"query": "LangChain 的 embedding 结果怎么缓存？", "label": "专业咨询"}
+{"query": "LangChain 怎么给检索结果做重排序？", "label": "专业咨询"}
+{"query": "Milvus 的 dense 和 sparse 向量检索有什么区别？", "label": "专业咨询"}
+{"query": "陪我聊聊天", "label": "通用知识"}
+{"query": "LangChain 的 Chain 和 Agent 有什么区别？", "label": "专业咨询"}
+{"query": "怎么删除 Milvus 集合里的数据？", "label": "专业咨询"}
+{"query": "Python 怎么处理异常？", "label": "通用知识"}
+{"query": "怎么减少向量占用的存储空间？", "label": "专业咨询"}
+{"query": "Transformers 的 attention 机制是什么？", "label": "专业咨询"}
+{"query": "什么是解释器？", "label": "通用知识"}
+{"query": "Python 的 dict 底层是什么结构？", "label": "通用知识"}
+{"query": "什么是操作系统？", "label": "通用知识"}
+{"query": "怎么求矩阵的行列式？", "label": "通用知识"}
+{"query": "什么是 API 的幂等性？", "label": "通用知识"}
+{"query": "怎么让回答引用来源文档？", "label": "专业咨询"}
+{"query": "再见", "label": "通用知识"}
+{"query": "什么是 TDD？", "label": "通用知识"}
+{"query": "怎么用 FlagEmbedding 计算 query 和 doc 的相关性？", "label": "专业咨询"}
+{"query": "HuggingFace 的 tokenizer 怎么用？", "label": "专业咨询"}
+{"query": "向量数据库和传统数据库有什么区别？", "label": "专业咨询"}
+{"query": "怎么用 Python 排序？", "label": "通用知识"}
+{"query": "怎么做西红柿炒鸡蛋？", "label": "通用知识"}
+{"query": "Milvus 的 Collection 和 Partition 是什么关系？", "label": "专业咨询"}
+{"query": "Transformers 的 from_pretrained 报连接错误怎么办？", "label": "专业咨询"}
+{"query": "Transformers 模型怎么保存和加载？", "label": "专业咨询"}
+{"query": "如何理财？", "label": "通用知识"}
+{"query": "什么是大数据？", "label": "通用知识"}
+{"query": "embedding 这个词怎么理解？", "label": "通用知识"}
+{"query": "百分比怎么换算？", "label": "通用知识"}
+{"query": "没问题", "label": "通用知识"}
+{"query": "有比直接检索更准的做法吗？", "label": "专业咨询"}
+{"query": "怎么用 SQL 做连表查询？", "label": "通用知识"}
+{"query": "怎么养一盆绿萝？", "label": "通用知识"}
+{"query": "LangChain 怎么做文档切分？", "label": "专业咨询"}
+{"query": "Python 的 list 和 tuple 有什么区别？", "label": "通用知识"}
+{"query": "Milvus 怎么创建 Collection？", "label": "专业咨询"}
+{"query": "FlagEmbedding 的 BGEM3FlagModel 怎么用？", "label": "专业咨询"}
+{"query": "如何做时间规划？", "label": "通用知识"}
+{"query": "什么是二叉树？", "label": "通用知识"}
+{"query": "什么是编译器？", "label": "通用知识"}
+{"query": "LangChain 怎么解析 JSON 输出？", "label": "专业咨询"}
+{"query": "怎么用 Transformers 做文本分类？", "label": "专业咨询"}
+{"query": "Transformers 怎么加载带 tokenizer 的模型？", "label": "专业咨询"}
+{"query": "LangChain 的 async 方法怎么用？", "label": "专业咨询"}
+{"query": "怎么微调一个 Transformers 模型？", "label": "专业咨询"}
+{"query": "Milvus 支持的相似度度量有哪些？", "label": "专业咨询"}
+{"query": "早上好", "label": "通用知识"}
+{"query": "继续", "label": "通用知识"}
+{"query": "Milvus 的 num_entities 和 row_count 有什么区别？", "label": "专业咨询"}
+{"query": "用 Python 给一组向量做归一化", "label": "通用知识"}
+{"query": "LangChain 怎么处理 token 超限？", "label": "专业咨询"}
+{"query": "什么是 CDN？", "label": "通用知识"}
+{"query": "怎么给文档做 embedding？", "label": "专业咨询"}
+{"query": "什么是容器？", "label": "通用知识"}
+{"query": "你是谁？", "label": "通用知识"}
+{"query": "好的", "label": "通用知识"}
+{"query": "微积分里的导数是做什么的？", "label": "通用知识"}
+{"query": "Transformers 的 warmup steps 是什么？", "label": "专业咨询"}
+{"query": "BGE-M3 的返回格式是什么？", "label": "专业咨询"}
+{"query": "Milvus 怎么做数据迁移？", "label": "专业咨询"}
+{"query": "怎么估算平方根？", "label": "通用知识"}
+{"query": "BGE-M3 的模型文件包含哪些部分？", "label": "专业咨询"}
+{"query": "收到", "label": "通用知识"}
+{"query": "嗯嗯", "label": "通用知识"}
+{"query": "Transformers 的 safetensors 格式是什么？", "label": "专业咨询"}
+{"query": "什么是递归？", "label": "通用知识"}
+{"query": "Transformers 的 special tokens 是什么？", "label": "专业咨询"}
+{"query": "Transformers 怎么设置随机种子？", "label": "专业咨询"}
+{"query": "Milvus 的稀疏向量用什么索引？", "label": "专业咨询"}
+{"query": "怎么用 Python 算余弦相似度？", "label": "通用知识"}
+{"query": "怎么用 BGE-M3 做跨语言检索？", "label": "专业咨询"}
+{"query": "检索结果去重怎么做？", "label": "专业咨询"}
+{"query": "解方程 x 的平方减 4 等于 0", "label": "通用知识"}
+{"query": "什么是 HTTPS？", "label": "通用知识"}
+{"query": "LangChain 怎么实现 RAG 的上下文拼接？", "label": "专业咨询"}
+{"query": "LangChain 的 Memory 组件怎么用？", "label": "专业咨询"}
+{"query": "怎么用 BGE 做文档检索？", "label": "专业咨询"}
+{"query": "怎么用 Python 解析命令行参数？", "label": "通用知识"}
+{"query": "Python 的 with 语句做什么用？", "label": "通用知识"}
+{"query": "Milvus 的动态字段 enable_dynamic_field 是什么？", "label": "专业咨询"}
+{"query": "Transformers 的 AutoTokenizer 和 Tokenizer 有什么区别？", "label": "专业咨询"}
+{"query": "怎么求数列的通项公式？", "label": "通用知识"}
+{"query": "Transformers 怎么做模型量化？", "label": "专业咨询"}
+{"query": "什么是 注意力机制？", "label": "专业咨询"}
+{"query": "什么是 多头注意力？", "label": "专业咨询"}
+{"query": "什么是 self-attention？", "label": "专业咨询"}
+{"query": "什么是 tokenizer？", "label": "专业咨询"}
+{"query": "什么是 token_type_ids？", "label": "专业咨询"}
+{"query": "什么是 embedding 向量？", "label": "专业咨询"}
+{"query": "什么是 向量数据库？", "label": "专业咨询"}
+{"query": "什么是 混合检索？", "label": "专业咨询"}
+{"query": "什么是 稠密向量？", "label": "专业咨询"}
+{"query": "什么是 稀疏向量？", "label": "专业咨询"}
+{"query": "什么是 重排序 reranker？", "label": "专业咨询"}
+{"query": "什么是 RAG？", "label": "专业咨询"}
+{"query": "什么是 向量索引？", "label": "专业咨询"}
+{"query": "什么是 HNSW 索引？", "label": "专业咨询"}
+{"query": "什么是 IVF_FLAT 索引？", "label": "专业咨询"}
+{"query": "什么是 语义检索？", "label": "专业咨询"}
+{"query": "什么是 余弦相似度？", "label": "专业咨询"}
+{"query": "什么是 上下文窗口？", "label": "专业咨询"}
+{"query": "什么是 最大输入长度？", "label": "专业咨询"}
+{"query": "什么是 BGE-M3？", "label": "专业咨询"}
+{"query": "什么是 bge-reranker？", "label": "专业咨询"}
+{"query": "什么是 FlagEmbedding？", "label": "专业咨询"}
+{"query": "什么是 交叉编码器 CrossEncoder？", "label": "专业咨询"}
+{"query": "什么是 双塔模型？", "label": "专业咨询"}
+{"query": "什么是 向量归一化？", "label": "专业咨询"}
+{"query": "什么是 prompt 提示词？", "label": "专业咨询"}
+{"query": "什么是 流式输出？", "label": "专业咨询"}
+{"query": "什么是 temperature 温度？", "label": "专业咨询"}
+{"query": "什么是 大模型幻觉？", "label": "专业咨询"}
+{"query": "什么是 上下文拼接？", "label": "专业咨询"}
+{"query": "什么是 文档切分？", "label": "专业咨询"}
+{"query": "什么是 父块和子块？", "label": "专业咨询"}
+{"query": "什么是 召回率？", "label": "专业咨询"}
+{"query": "什么是 chunk_size？", "label": "专业咨询"}
+{"query": "什么是 Milvus Collection？", "label": "专业咨询"}
+{"query": "什么是 partition 分区？", "label": "专业咨询"}
+{"query": "什么是 标量过滤？", "label": "专业咨询"}
+{"query": "什么是 一致性级别？", "label": "专业咨询"}
+{"query": "什么是 模型量化？", "label": "专业咨询"}
+{"query": "什么是 LoRA？", "label": "专业咨询"}
+{"query": "什么是 gradient checkpointing？", "label": "专业咨询"}
+{"query": "什么是 model card？", "label": "专业咨询"}
+{"query": "什么是 safetensors？", "label": "专业咨询"}
+{"query": "什么是 device_map？", "label": "专业咨询"}
+{"query": "什么是 padding 和 truncation？", "label": "专业咨询"}
+{"query": "什么是 token 是什么？", "label": "专业咨询"}
+{"query": "向量数据库 是什么意思？", "label": "专业咨询"}
+{"query": "embedding 是什么意思？", "label": "专业咨询"}
+{"query": "reranker 是什么意思？", "label": "专业咨询"}
+{"query": "混合检索 是什么意思？", "label": "专业咨询"}
+{"query": "RAG 是什么意思？", "label": "专业咨询"}
+{"query": "attention 是什么？", "label": "专业咨询"}
+{"query": "Transformer 的注意力机制是什么？", "label": "专业咨询"}
+{"query": "句向量和词向量有什么区别？", "label": "专业咨询"}
+{"query": "稠密检索和稀疏检索分别适合什么场景？", "label": "专业咨询"}
+{"query": "怎么理解 embedding 的语义相似度？", "label": "专业咨询"}
+{"query": "向量召回是什么？", "label": "专业咨询"}
+{"query": "什么是负采样？", "label": "专业咨询"}
+{"query": "什么是 reranking？", "label": "专业咨询"}
+{"query": "如何理解 cross-encoder 和 bi-encoder？", "label": "专业咨询"}
+{"query": "什么是知识库检索增强生成？", "label": "专业咨询"}
+{"query": "什么是向量维度和距离度量？", "label": "专业咨询"}
+{"query": "什么是索引的 nprobe 参数？", "label": "专业咨询"}
+{"query": "什么是 top-k 检索？", "label": "专业咨询"}
+{"query": "什么是最大边际相关性 MMR？", "label": "专业咨询"}
+{"query": "怎么用 Python 读取 CSV 文件？", "label": "通用知识"}
+{"query": "怎么在 Python 里合并两个字典？", "label": "通用知识"}
+{"query": "pandas 怎么对数据去重？", "label": "通用知识"}
+{"query": "numpy 怎么创建数组？", "label": "通用知识"}
+{"query": "怎么用 matplotlib 画折线图？", "label": "通用知识"}
+{"query": "怎么用 requests 发送 POST 请求？", "label": "通用知识"}
+{"query": "怎么用 Java 定义一个类？", "label": "通用知识"}
+{"query": "怎么用 C++ 读取文件？", "label": "通用知识"}
+{"query": "怎么用 Go 启动一个 HTTP 服务？", "label": "通用知识"}
+{"query": "怎么用 JavaScript 操作 DOM？", "label": "通用知识"}
+{"query": "怎么用 MySQL 建表？", "label": "通用知识"}
+{"query": "怎么用 Redis 做缓存？", "label": "通用知识"}
+{"query": "怎么用 Docker 构建镜像？", "label": "通用知识"}
+{"query": "怎么用 git 拉取代码？", "label": "通用知识"}
+{"query": "怎么用 Linux 查看进程？", "label": "通用知识"}
+{"query": "怎么用 vim 保存文件？", "label": "通用知识"}
+{"query": "怎么用 npm 安装依赖？", "label": "通用知识"}
+{"query": "怎么用 pytest 写测试？", "label": "通用知识"}
+{"query": "怎么用 Flask 写一个接口？", "label": "通用知识"}
+{"query": "怎么用 Django 建一个项目？", "label": "通用知识"}
+{"query": "怎么用 Nginx 配置反向代理？", "label": "通用知识"}
+{"query": "怎么用 Linux 设置定时任务？", "label": "通用知识"}
+{"query": "怎么用正则表达式提取数字？", "label": "通用知识"}
+{"query": "怎么用 Python 解压文件？", "label": "通用知识"}
+{"query": "怎么用 shell 批量重命名？", "label": "通用知识"}
+{"query": "怎么做红烧肉？", "label": "通用知识"}
+{"query": "怎么提高工作效率？", "label": "通用知识"}
+{"query": "怎么选择合适的相机？", "label": "通用知识"}
+{"query": "怎么缓解焦虑？", "label": "通用知识"}
+{"query": "怎么快速入睡？", "label": "通用知识"}
+{"query": "怎么学游泳？", "label": "通用知识"}
+{"query": "什么是 HTTP 状态码 404？", "label": "通用知识"}
+{"query": "什么是 MVC 模式？", "label": "通用知识"}
+{"query": "什么是 ORM？", "label": "通用知识"}
+{"query": "什么是 WebSocket？", "label": "通用知识"}
+{"query": "什么是 JWT？", "label": "通用知识"}
+{"query": "什么是 OAuth？", "label": "通用知识"}
+{"query": "什么是幂等？", "label": "通用知识"}
+{"query": "什么是灰度发布？", "label": "通用知识"}
+{"query": "什么是 CI/CD？", "label": "通用知识"}
+{"query": "什么是代码覆盖率？", "label": "通用知识"}
+{"query": "什么是版本控制？", "label": "通用知识"}
+{"query": "什么是敏捷开发？", "label": "通用知识"}
+{"query": "什么是域名解析？", "label": "通用知识"}
+{"query": "怎么用命令行压缩文件？", "label": "通用知识"}

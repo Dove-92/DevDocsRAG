@@ -1,0 +1,102 @@
+
+# ==============================
+# Python
+# ==============================
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# ==============================
+# Environment and secrets
+# ==============================
+.env
+.env.*
+!.env.example
+!.env.template
+
+config.ini
+config.ini.*
+*.pem
+*.key
+
+# ==============================
+# IDE
+# ==============================
+.idea/
+.vscode/
+
+# ==============================
+# Frontend
+# ==============================
+node_modules/
+dist/
+build/
+.next/
+
+# ==============================
+# Logs and temporary files
+# ==============================
+logs/
+*.log
+tmp/
+temp/
+
+# ==============================
+# Local backups
+# ==============================
+_backup_*/
+*.bak
+*.phase5bak
+*.phase6bak
+
+# ==============================
+# Model weights
+# ==============================
+rag_qa/models/
+
+# ==============================
+# Classification training checkpoints
+# ==============================
+rag_qa/classify_data/**/checkpoint-*/
+
+# Training state files
+rag_qa/classify_data/**/*.pt
+rag_qa/classify_data/**/*.bin
+rag_qa/classify_data/**/*.pth
+
+# ==============================
+# Historical training results
+# ==============================
+rag_qa/core/bert_results/
+
+# ==============================
+# Milvus and local databases
+# ==============================
+milvus_data/
+*.sqlite
+*.sqlite3
+
+# ==============================
+# Generated files
+# ==============================
+uploads/
+outputs/
+
+# Removed knowledge-base snapshots
+rag_qa/data/_removed/
+
+# Third-party BGE tutorials
+rag_qa/data/bge_data/
+
+# Third-party BGE tutorials
+rag_qa/data/bge_data/
+
+# Intermediate evaluation outputs
+eval/results/*
+!eval/results/phase10_final_acceptance.md

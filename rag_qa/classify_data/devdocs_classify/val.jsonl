@@ -1,0 +1,58 @@
+{"query": "什么是算法复杂度？", "label": "通用知识"}
+{"query": "BGE-M3 的 colbert 向量是什么？", "label": "专业咨询"}
+{"query": "BGE-M3 的最大输入长度是多少？", "label": "专业咨询"}
+{"query": "什么是正则表达式的贪婪匹配？", "label": "通用知识"}
+{"query": "什么是并发和并行？", "label": "通用知识"}
+{"query": "怎么用 BGE 做混合检索？", "label": "专业咨询"}
+{"query": "bge-reranker-large 怎么用来做精排？", "label": "专业咨询"}
+{"query": "LangChain 的 fallback 机制是什么？", "label": "专业咨询"}
+{"query": "Milvus 的 compaction 是什么？", "label": "专业咨询"}
+{"query": "什么是计算机视觉？", "label": "通用知识"}
+{"query": "Milvus 的配置参数在哪里修改？", "label": "专业咨询"}
+{"query": "LangChain 怎么调用自定义工具？", "label": "专业咨询"}
+{"query": "Milvus 怎么计算两个向量的相似度？", "label": "专业咨询"}
+{"query": "Transformers 怎么加载半精度模型？", "label": "专业咨询"}
+{"query": "怎么选 embedding 模型的维度？", "label": "专业咨询"}
+{"query": "怎么减肥？", "label": "通用知识"}
+{"query": "LangChain 的 vector store 怎么选择？", "label": "专业咨询"}
+{"query": "什么是自然语言处理？", "label": "通用知识"}
+{"query": "给我讲个笑话", "label": "通用知识"}
+{"query": "LangChain 的 conversation memory 怎么持久化？", "label": "专业咨询"}
+{"query": "Milvus 插入时报向量维度不匹配怎么办？", "label": "专业咨询"}
+{"query": "Python 的 GIL 是什么？", "label": "通用知识"}
+{"query": "你喜欢什么？", "label": "通用知识"}
+{"query": "什么是哈希表？", "label": "通用知识"}
+{"query": "怎么给它加个缓存？", "label": "专业咨询"}
+{"query": "Milvus 支持哪些向量索引类型？", "label": "专业咨询"}
+{"query": "什么是接口和抽象类？", "label": "通用知识"}
+{"query": "什么是深拷贝和浅拷贝？", "label": "通用知识"}
+{"query": "什么是图论？", "label": "通用知识"}
+{"query": "BGE-M3 的 dense 和 sparse 检索各适合什么场景？", "label": "专业咨询"}
+{"query": "如何提高睡眠质量？", "label": "通用知识"}
+{"query": "怎么用 Transformers 做翻译？", "label": "专业咨询"}
+{"query": "Transformers 怎么设置 max_length？", "label": "专业咨询"}
+{"query": "怎么把这个模型部署到本地？", "label": "专业咨询"}
+{"query": "怎么把这个流程改成流式？", "label": "专业咨询"}
+{"query": "什么是命令行？", "label": "通用知识"}
+{"query": "怎么给查询加过滤条件？", "label": "专业咨询"}
+{"query": "周末愉快", "label": "通用知识"}
+{"query": "怎么给 Milvus 的向量字段建索引？", "label": "专业咨询"}
+{"query": "BGE-M3 在 CPU 上怎么加载？", "label": "专业咨询"}
+{"query": "什么是单元测试？", "label": "通用知识"}
+{"query": "排列组合怎么计算？", "label": "通用知识"}
+{"query": "BGE 系列都有哪些模型？", "label": "专业咨询"}
+{"query": "怎么解二元一次方程组？", "label": "通用知识"}
+{"query": "讲个冷笑话", "label": "通用知识"}
+{"query": "什么是公钥和私钥？", "label": "通用知识"}
+{"query": "Milvus 怎么重建索引？", "label": "专业咨询"}
+{"query": "北京到上海有多远？", "label": "通用知识"}
+{"query": "圆的面积公式是什么？", "label": "通用知识"}
+{"query": "怎么把回答控制在知识库范围内？", "label": "专业咨询"}
+{"query": "Milvus 怎么删除索引？", "label": "专业咨询"}
+{"query": "LangChain 的 DocumentLoader 支持哪些格式？", "label": "专业咨询"}
+{"query": "怎么算概率？", "label": "通用知识"}
+{"query": "FlagEmbedding 怎么安装？", "label": "专业咨询"}
+{"query": "什么是 CAP 理论？", "label": "通用知识"}
+{"query": "怎么配置环境变量？", "label": "通用知识"}
+{"query": "怎么算利息？", "label": "通用知识"}
+{"query": "TCP 和 UDP 有什么区别？", "label": "通用知识"}
