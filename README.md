@@ -201,5 +201,4 @@ Phase 8 的历史结果 `eval/results/phase8_runtime.json` 与 `phase8_faq_audit
 ## 已知限制
 
 - 无检索结果时，模型可能给出有限的通用建议，并在回答中说明“依据不足”；此时 `citations` 为 0。运行期脚本接受“拒答/说明无依据”语义，不依赖固定句式；若验收要求严格拒答（不允许任何通用建议），需收紧提示词或无答案门控后再验收。
-- 旧教育 FAQ/BM25 快速通道已停用并清理；所有非问候问题统一走 RAG。
 - 本项目按技术文档领域配置，`valid_sources` 仅包含 `langchain`、`milvus`、`bge`、`transformers`。
