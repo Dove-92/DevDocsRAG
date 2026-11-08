@@ -1,0 +1,9 @@
+# 让 GitHub 语言统计聚焦于真实代码：文档数据不计入 Languages
+
+# 文档与数据文件标记为 documentation，不参与语言占比统计
+docs/** linguist-documentation
+rag_qa/data/** linguist-documentation
+*.mdx linguist-documentation
+
+# 评测结果输出（JSON 等）不计入统计
+eval/results/** linguist-generated=true
