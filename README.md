@@ -1,75 +1,71 @@
 # DevDocsRAG
 
-面向开发者的技术文档智能问答系统，覆盖 **LangChain、Milvus、BGE/FlagEmbedding、Hugging Face Transformers**。系统使用 Milvus 向量检索 + BGE-M3 混合检索 + 查询分类/策略选择 + 可支撑性判定，通过 DashScope Qwen 生成流式答案，并使用 MySQL 保存会话历史。
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-WebSocket-009688)
+![Milvus](https://img.shields.io/badge/Milvus-2.5.x-orange)
+![BGE--M3](https://img.shields.io/badge/BGE--M3-hybrid--retrieval-purple)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-## 架构
+面向开发者的技术文档智能问答系统：Milvus 向量检索 + BGE-M3 混合检索 + 查询分类/策略选择 + 可支撑性判定，通过 DashScope Qwen 生成流式答案，并使用 MySQL 保存会话历史。
 
-```text
-static/index.html
-        │  HTTP / WebSocket
-        ▼
-app.py (FastAPI)
-        │
-        ▼
-qa_system.py (IntegratedQASystem)
-        ├── MySQL conversations    会话历史（最近 5 轮）
-        └── rag_qa/core/rag_pipeline.py (RAGSystem)
-                ├── QueryClassifier     通用知识 / 专业咨询
-                ├── StrategySelector    直接检索 / HyDE / 子查询 / 回溯
-                ├── VectorStore         Milvus devdocs_final + BGE-M3 + reranker
-                └── call_dashscope      Qwen 流式生成
+*A technical documentation RAG system with hybrid retrieval, reranking, and query routing.*
+
+## ✨ 效果展示
+
+<!-- TODO: 在此插入问答界面截图或提问→流式回答的 GIF，建议放 docs/images/ 下并引用相对路径 -->
+<!-- 示例：
+![问答演示](docs/images/demo.gif)
+-->
+
+## 📊 核心指标
+
+**知识库规模**
+
+- 覆盖 **4 类技术文档**（LangChain / Milvus / BGE·FlagEmbedding / Hugging Face Transformers）
+- **740 篇文档**，Markdown/Notebook 解析 + 父子块切分后共 **32,854 条子块记录**（Milvus `devdocs_final` 集合）
+
+**检索与答案质量**
+
+| 指标 | 结果 |
+|---|---|
+| 检索评测 Recall@5（19 题） | **84.2%** |
+| 检索评测 MRR@10（19 题） | **63.2%** |
+| 负例误答率（11 个负例） | **36.4% → 9.1%** |
+| 域外问题拒答率 | **100%** |
+
+**服务与测试**
+
+- 端到端真实调用 p50 约 **11s**（15 次调用统计）
+- **7 套回归/验收脚本，共 202 项检查通过**
+
+## 🏗️ 系统架构
+
+```mermaid
+flowchart TD
+    UI["static/index.html<br/>前端页面"] -->|"HTTP / WebSocket"| APP["app.py<br/>FastAPI 入口"]
+    APP --> QA["qa_system.py<br/>IntegratedQASystem"]
+    APP --> MySQL[("MySQL<br/>conversations 会话历史")]
+    QA --> RAG["rag_qa/core/rag_pipeline.py<br/>RAGSystem"]
+    RAG --> QC["QueryClassifier<br/>通用知识 / 专业咨询"]
+    RAG --> SS["StrategySelector<br/>直接检索 / HyDE / 子查询 / 回溯"]
+    RAG --> VS["VectorStore<br/>Milvus + BGE-M3 混合检索 + Reranker"]
+    RAG --> LLM["DashScope Qwen<br/>流式生成 + 引用溯源"]
 ```
 
-## 目录
+## 🚀 快速开始
 
-```text
-app.py                     FastAPI 入口（HTTP + WebSocket）
-qa_system.py               集成问答核心：会话历史 + RAG 流式输出
-config.ini                 本地配置（含密钥，不应提交）
-config.example.ini         配置模板（占位值）
-requirements.txt           Python 依赖
-base/                      配置与日志
-mysql_qa/                  MySQL 连接（仅保留连接/游标/关闭）
-rag_qa/core/               RAG 主链路与提示词
-rag_qa/models/             DevDocs 查询分类模型
-rag_qa/data/               文档数据
-eval/                      评测脚本、回归脚本与 results/ 结果
-static/                    前端静态页面
-docs/                      项目文档（概览、代码导读、架构、模块、部署、评测）
-logs/                      运行日志
-_backup_* / *.phase5bak    历史备份（保留）
-```
-
-## 文档
-
-- [项目概览](docs/project_overview.md)
-- [代码与目录导读](docs/codebase_guide.md)
-- [架构与工作流](docs/architecture_and_workflow.md)
-- [核心模块说明](docs/core_modules.md)
-- [部署与故障排查](docs/setup_and_troubleshooting.md)
-- [测试与评测](docs/testing_and_evaluation.md)
-
-## 环境要求
+**环境要求**
 
 - Python 3.10（建议使用独立 conda 环境）
-- MySQL 8.x，数据库默认 `subjects_kg`
-- Milvus 2.5.x，默认 `localhost:19530`，数据库 `itcast`，集合 `devdocs_final`
+- MySQL 8.x（数据库默认 `subjects_kg`）
+- Milvus 2.5.x（默认 `localhost:19530`，集合 `devdocs_final`）
 - DashScope API Key（Qwen）
-- 可选：Redis。Phase 9 后 FAQ 缓存已移除，运行时不依赖 Redis
 
-安装依赖：
+**安装与配置**
 
-```powershell
-conda activate edu_rag
+```bash
 pip install -r requirements.txt
-```
-
-`torch==2.10.0` 需按平台选择 wheel。GPU 环境建议从 PyTorch 官方源安装对应 CUDA 版本（本项目验证环境为 CUDA 12.8）。
-
-## 配置
-
-```powershell
-Copy-Item config.example.ini config.ini
+cp config.example.ini config.ini   # Windows PowerShell: Copy-Item config.example.ini config.ini
 ```
 
 编辑 `config.ini`，至少修改：
@@ -78,34 +74,26 @@ Copy-Item config.example.ini config.ini
 - `[llm] dashscope_api_key`
 - 如 Milvus 不在本机，修改 `[milvus] host/port`
 
-密钥也可以使用环境变量覆盖：
+密钥也可以使用环境变量覆盖：`MYSQL_HOST` / `MYSQL_USER` / `MYSQL_PASSWORD` / `MYSQL_DATABASE`、`MILVUS_HOST` / `MILVUS_PORT` / `MILVUS_DATABASE_NAME` / `MILVUS_COLLECTION_NAME`、`DASHSCOPE_API_KEY`。
 
-```text
-MYSQL_HOST / MYSQL_USER / MYSQL_PASSWORD / MYSQL_DATABASE
-MILVUS_HOST / MILVUS_PORT / MILVUS_DATABASE_NAME / MILVUS_COLLECTION_NAME
-DASHSCOPE_API_KEY
-```
+> ⚠️ 不要把真实 `config.ini`、日志或评测输出中的敏感信息提交到公开仓库。
 
-不要把真实 `config.ini`、日志或评测输出中的敏感信息提交到公开仓库。
+**启动**
 
-## 启动
-
-```powershell
+```bash
 python app.py
-# 或使用验证环境
-& "C:\ProgramData\anaconda3\envs\edu_rag\python.exe" app.py
 ```
 
 默认监听 `0.0.0.0:8081`（可用 `HOST`、`PORT` 环境变量覆盖）。启动后访问：
 
 - 首页：`http://127.0.0.1:8081/`
 - 健康检查：`http://127.0.0.1:8081/health`
-- Swagger：`http://127.0.0.1:8081/docs`
+- Swagger 文档：`http://127.0.0.1:8081/docs`
 
-## HTTP / WebSocket 接口
+## 📡 API 接口
 
 | 方法 | 路径 | 说明 |
-| --- | --- | --- |
+|---|---|---|
 | GET | `/` | 前端首页 |
 | GET | `/health` | 健康检查 |
 | GET | `/api/sources` | 支持的技术来源 |
@@ -115,36 +103,36 @@ python app.py
 | POST | `/api/query` | 非流式入口；非问候问题返回转流式提示 |
 | WS | `/api/stream` | 流式问答 |
 
-WebSocket 请求：
+WebSocket 请求示例：
 
 ```json
 {"query": "Milvus 如何创建 Collection？", "source_filter": "milvus", "session_id": "..."}
 ```
 
-服务端消息类型：
+服务端消息类型：`start -> token* -> end` / `error`。`end` 帧包含 `is_complete`、`processing_time` 和 `citations`（含 `source`、`file_path`、`repo`、`version`、`doc_type`、`url`）。
 
-```text
-start -> token* -> end
-error
+## 📁 项目结构
+
+```
+app.py                     FastAPI 入口（HTTP + WebSocket）
+qa_system.py               集成问答核心：会话历史 + RAG 流式输出
+config.example.ini         配置模板（占位值）
+requirements.txt           Python 依赖
+base/                      配置与日志
+mysql_qa/                  MySQL 连接（连接/游标/关闭）
+rag_qa/core/               RAG 主链路与提示词
+rag_qa/models/             DevDocs 查询分类模型
+rag_qa/data/               文档数据
+eval/                      评测脚本、回归脚本与 results/ 结果
+static/                    前端静态页面
+docs/                      项目文档（概览、代码导读、架构、模块、部署、评测）
 ```
 
-`end` 帧包含 `is_complete`、`processing_time` 和 `citations`。`citations` 元素包含 `source`、`file_path`、`repo`、`version`、`doc_type`、`url`。
-
-## 检索参数
-
-`config.ini` 的 `[retrieval]`：
-
-- `retrieval_k = 10`
-- `candidate_m = 2`
-- `relevance_threshold = 0.2`
-- `support_judge = true`
-- `support_judge_max_chars = 4000`
-
-## 测试与回归
+## 🧪 测试与回归
 
 先启动服务（默认 8081），再运行运行期脚本：
 
-```powershell
+```bash
 python eval/test_phase9_cleanup.py
 python eval/verify_runtime_phase8.py
 python eval/verify_runtime_phase7.py
@@ -154,51 +142,30 @@ python eval/test_fixes.py
 python eval/test_phase51_regression.py
 ```
 
-结果写入 `eval/results/`。可用 `RAG_RESULT_OUT` 指定隔离的输出路径，避免覆盖历史基线：
+结果写入 `eval/results/`。可用 `RAG_RESULT_OUT` 指定隔离的输出路径，避免覆盖历史基线。
 
-```powershell
-$env:RAG_RESULT_OUT="eval/results/phase9_runtime.json"
-python eval/verify_runtime_phase8.py
-```
+**检索参数**（`config.ini` 的 `[retrieval]`）：`retrieval_k = 10`、`candidate_m = 2`、`relevance_threshold = 0.2`、`support_judge = true`、`support_judge_max_chars = 4000`。
 
-## Phase 10 命名整理
+## 📖 详细文档
 
-- `new_main.py` → `qa_system.py`
-- `rag_qa/core/new_rag_system.py` → `rag_qa/core/rag_pipeline.py`
-- `mysql_qa/db/mysql_client.py` 类 `mysql_client` → `MySQLClient`
-- `rag_qa/rag_assessment/rag_as.py` → `ragas_eval.py`
-- `rag_qa/classify_data/提示词模块.txt` → `prompt_template.txt`
+- [项目概览](docs/project_overview.md)
+- [代码与目录导读](docs/codebase_guide.md)
+- [架构与工作流](docs/architecture_and_workflow.md)
+- [核心模块说明](docs/core_modules.md)
+- [部署与故障排查](docs/setup_and_troubleshooting.md)
+- [测试与评测](docs/testing_and_evaluation.md)
 
-`base/`、`rag_qa/edu_document_loaders/`、`rag_qa/edu_text_spliter/` 等历史包名暂保留，避免影响既有导入与运行链路。
+## ⚠️ 已知限制
 
-## Phase 9 清理记录
+- 无检索结果时，模型可能给出有限的通用建议，并在回答中说明"依据不足"；此时 `citations` 为 0。运行期脚本接受"拒答/说明无依据"语义，不依赖固定句式；若验收要求严格拒答（不允许任何通用建议），需收紧提示词或无答案门控后再验收。
+- 本项目按技术文档领域配置，`valid_sources` 仅包含 `langchain`、`milvus`、`bge`、`transformers`。
 
-已移除：
-
-- `mysql_qa/data/JP学科知识问答.csv`
-- MySQL `subjects_kg.jpkb` 表（467 行）
-- Redis `qa_original_questions`、`qa_tokenized_questions`、`answer:*`（14 个键）
-- `mysql_qa/cache/`、`mysql_qa/retrieval/`、`mysql_qa/utils/`、`mysql_qa/main.py`
-- `eval/audit_faq.py`、`eval/test_phase8_faq_off.py`
-- 旧教育领域 CLI/主链路：`rag_qa/main.py`、`rag_qa/core/rag_system.py`、`rag_qa/core/rag_query.py`
-- `faq_enabled` / `FAQ_ENABLED` 配置项与运行时 FAQ 分支
-
-保留：
-
-- MySQL `conversations` 表与会话历史功能
-- Milvus `devdocs_final`（约 32,854 条）与 `edurag_final`
-- 模型、文档数据、历史评测结果、回归基线、备份目录
-- Redis 中来源不明的 `test_key`（未删除）
-
-Phase 8 的历史结果 `eval/results/phase8_runtime.json` 与 `phase8_faq_audit.json` 保留作为证据；Phase 9 结果使用 `phase9_*` 文件名。
-
-## 交付与安全
+## 🔒 交付与安全
 
 - 交付包不得包含 `config.ini`、`config.ini*` 备份、`*.phase6bak`、`logs/`、`_backup_*/`；这些路径已加入 `.gitignore`。
 - `base/config.py` 不保存真实密码兜底值；密码和 API Key 仅从 `config.ini` 或环境变量读取。
 - 共享或发布前应轮换 `config.ini` 中的 MySQL 密码与 DashScope Key。
 
-## 已知限制
+## 📄 License
 
-- 无检索结果时，模型可能给出有限的通用建议，并在回答中说明“依据不足”；此时 `citations` 为 0。运行期脚本接受“拒答/说明无依据”语义，不依赖固定句式；若验收要求严格拒答（不允许任何通用建议），需收紧提示词或无答案门控后再验收。
-- 本项目按技术文档领域配置，`valid_sources` 仅包含 `langchain`、`milvus`、`bge`、`transformers`。
+[MIT](LICENSE)
