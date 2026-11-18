@@ -58,20 +58,23 @@ python app.py
 - 需设置 `FOR_DISABLE_CONSOLE_CTRL_HANDLER=1`，并用「分离进程」方式启动，避免控制台关闭导致子进程被终止。
 - 推荐用一个批处理包装环境变量与重定向，再通过 `Win32_Process Create` 启动：
 
+将下面内容保存为仓库根目录下的 `start_service.ps1`，在 PowerShell 中执行 `.\start_service.ps1` 即可（脚本用 `$PSScriptRoot` 自动定位仓库目录，无需手工填写绝对路径）：
+
 ```powershell
 $r = Invoke-CimMethod -ClassName Win32_Process -MethodName Create -Arguments @{
-    CommandLine = '"<仓库绝对路径>\run.bat"'; CurrentDirectory = '<仓库绝对路径>'
+    CommandLine = "`"$PSScriptRoot\run.bat`""; CurrentDirectory = $PSScriptRoot
 }
 ```
 
-`run.bat` 内容示例：
+将下面内容保存为仓库根目录下的 `run.bat`（`%~dp0` 自动展开为脚本所在目录，放在仓库根目录即无需修改任何路径；logs 目录不存在时自动创建）：
 
 ```bat
 @echo off
 set FOR_DISABLE_CONSOLE_CTRL_HANDLER=1
 set PYTHONIOENCODING=utf-8
-cd /d <仓库绝对路径>
-"python" app.py > logs\run.log 2>&1
+cd /d "%~dp0"
+if not exist logs mkdir logs
+python app.py > logs\run.log 2>&1
 ```
 
 - 不要用 `Start-Process -RedirectStandardOutput` 直接托管长驻服务，可能出现句柄占用导致进程被拖住/终止。
@@ -89,7 +92,15 @@ cd /d <仓库绝对路径>
 | `rag_qa/models/bert-base-chinese` | google-bert/bert-base-chinese | 查询分类基座模型 | https://huggingface.co/google-bert/bert-base-chinese |
 | `rag_qa/models/bert_query_classifier_devdocs` | 本项目微调分类模型 | 区分「通用知识 / 专业咨询」查询（`QueryClassifier` 加载） | 无公开下载；用下述训练脚本产出 |
 
-下载方式（任选其一）：`huggingface-cli download <模型ID> --local-dir rag_qa/models/<目录名>`，或从 ModelScope 镜像下载同名模型。四个目录需齐全，缺任一项启动即报错。
+下载命令（在仓库根目录执行，可直接复制；需先 `pip install -U "huggingface_hub[cli]"`）：
+
+```bash
+huggingface-cli download BAAI/bge-m3 --local-dir rag_qa/models/bge-m3
+huggingface-cli download BAAI/bge-reranker-large --local-dir rag_qa/models/bge-reranker-large
+huggingface-cli download google-bert/bert-base-chinese --local-dir rag_qa/models/bert-base-chinese
+```
+
+第四个目录 `rag_qa/models/bert_query_classifier_devdocs` 为本项目微调产物，无公开下载，由下方训练脚本产出。国内网络无法访问 Hugging Face 时，可设置镜像环境变量 `HF_ENDPOINT=https://hf-mirror.com` 后重试，或从 ModelScope 下载同名模型放入对应目录。四个目录需齐全，缺任一项启动即报错。
 
 微调分类模型复现：
 
@@ -118,7 +129,14 @@ python rag_qa/classify_data/devdocs_classify/train_classifier.py
 
 语料来源与授权见 [NOTICE.md](../NOTICE.md)：仓库内含 LangChain（113 个文件）与 Transformers（198 个文件）文档抓取副本；Milvus 与 BGE/FlagEmbedding 语料未入库，需自行从上游仓库获取后按同一链路入库。
 
-> 注意：`rag_qa/core/build_knowledge_base.py` 是独立的教学示例脚本，写入的是 `edu_rag_exam_hybrid` 集合且含 `drop_collection` 逻辑，**不是生产集合 `devdocs_final` 的构建器**，请勿对生产库运行。仓库未包含一键重建 `devdocs_final` 的独立脚本；从零重建需按上述链路自行组织入库脚本（调用 `VectorStore.add_documents`），此步骤本次未实际执行验证。
+> 注意：`rag_qa/core/build_knowledge_base.py` 是独立的教学示例脚本，写入的是 `edu_rag_exam_hybrid` 集合且含 `drop_collection` 逻辑，**不是生产集合 `devdocs_final` 的构建器**，请勿对生产库运行。
+
+**生产集合重建的评估结论与限制**（本轮审查结论：暂不提供一键重建脚本，原因如下）：
+
+- 技术路径本身可行且对在线服务无破坏：`VectorStore.add_documents` 以子块文本的 MD5 为主键做 upsert（幂等，相同文本覆盖更新），不删除集合、不清空数据；可用独立集合名（`VectorStore(collection_name=...)` 或环境变量 `MILVUS_COLLECTION_NAME`）先构建、验证后再切换，全程不影响现有 `devdocs_final`。
+- 但仓库未留存生产集合的原始入库脚本与语料清单/快照版本，约 32,854 条记录无法确认能被现有语料精确复现：`parent_id` 按 `doc_{加载序号}_parent_{父块序号}` 生成，依赖目录遍历与加载顺序；语料文件增删或顺序变化都会改变编号；Milvus/BGE 语料未入库，需自行获取且版本未知。
+- 新增独立构建脚本属于较大改动，且当前环境（无 Milvus/GPU/模型权重）无法端到端验证其与生产集合的等价性，故本轮不实施，仅在此说明限制。
+- 如需自行重建：按上述链路对每个 `rag_qa/data/<来源>_data/` 目录调用 `process_documents(directory_path)`（目录名去掉 `_data` 后缀即 `source` 字段），再调用 `VectorStore.add_documents(documents)`；建议先写入独立集合验证检索效果，再决定是否切换。此流程未在本环境实际执行验证。
 
 ### 5.4 启动验证
 
