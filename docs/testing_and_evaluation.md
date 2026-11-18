@@ -20,7 +20,9 @@
 | `analyze_phase6.py` | 离线 | 已有结果 | 汇总分析 Phase6 结果 | `phase6_analysis.json` |
 | `generate_eval_set.py` | 离线 | 无 | 生成评测集 | `devdocs_eval_set_v1.jsonl` |
 
-评测数据：`devdocs_eval_set_v1.jsonl`（人工标注，`needs_review=false` 且 `expected_docs/answer_points` 非空的样本参与指标计算），说明见 `ANNOTATION_GUIDE.md`；`faq_routing_cases.jsonl` 为历史 FAQ 路由用例（保留为证据）。
+评测数据：`devdocs_eval_set_v1.jsonl` 共 **69 题**（人工标注；题型分布：api_usage 14、concept 10、general 10、error_diag 7、config 7、concept_compare 6、version_diff 5、boundary 5、no_answer 5）。其中 `needs_review=false` 且 `expected_docs` 非空的**检索参评样本当前为 21 题**；README 引用的 Recall@5/MRR@10 为历史评测时点 19 题子集的结果。标注规范见 `ANNOTATION_GUIDE.md`；`faq_routing_cases.jsonl` 为历史 FAQ 路由用例（保留为证据）。
+
+查询分类模型数据：`rag_qa/classify_data/devdocs_classify/` 下 train 272 / val 58 / test 59 条（二分类：通用知识 / 专业咨询）。仓库内未保存历史训练准确率数值记录，复现训练时以脚本输出的验证/测试指标为准，不得引用未经记录的数字。
 
 ## 2. 运行方式
 
@@ -28,28 +30,28 @@
 
 运行期脚本（需要服务）：
 
-```powershell
-& "C:\ProgramData\anaconda3\envs\edu_rag\python.exe" eval/verify_runtime_phase8.py
-& "C:\ProgramData\anaconda3\envs\edu_rag\python.exe" eval/verify_runtime_phase7.py
+```bash
+python eval/verify_runtime_phase8.py
+python eval/verify_runtime_phase7.py
 ```
 
 离线/只读脚本：
 
-```powershell
-& "C:\ProgramData\anaconda3\envs\edu_rag\python.exe" eval/test_phase9_cleanup.py
-& "C:\ProgramData\anaconda3\envs\edu_rag\python.exe" eval/test_domain_consistency.py
-& "C:\ProgramData\anaconda3\envs\edu_rag\python.exe" eval/test_phase6.py
-& "C:\ProgramData\anaconda3\envs\edu_rag\python.exe" eval/test_phase51_regression.py
-& "C:\ProgramData\anaconda3\envs\edu_rag\python.exe" eval/test_fixes.py
+```bash
+python eval/test_phase9_cleanup.py
+python eval/test_domain_consistency.py
+python eval/test_phase6.py
+python eval/test_phase51_regression.py
+python eval/test_fixes.py
 ```
 
 ## 3. 隔离输出（不覆盖历史基线）
 
 支持 `RAG_RESULT_OUT` 的脚本会写到指定路径：
 
-```powershell
-$env:RAG_RESULT_OUT="eval/results/phase10_cleanup.json"
-& "C:\ProgramData\anaconda3\envs\edu_rag\python.exe" eval/test_phase9_cleanup.py
+```bash
+RAG_RESULT_OUT=eval/results/phase10_cleanup.json python eval/test_phase9_cleanup.py
+# Windows PowerShell: $env:RAG_RESULT_OUT="eval/results/phase10_cleanup.json"; python eval/test_phase9_cleanup.py
 ```
 
 运行期脚本还支持 `RAG_HOST`、`RAG_PORT` 指定服务地址。
@@ -68,16 +70,25 @@ $env:RAG_RESULT_OUT="eval/results/phase10_cleanup.json"
 
 校验：
 
-```powershell
-& "C:\ProgramData\anaconda3\envs\edu_rag\python.exe" -c "import hashlib; print(hashlib.sha256(open('eval/results/phase6_tests.json','rb').read()).hexdigest())"
+```bash
+python -c "import hashlib; print(hashlib.sha256(open('eval/results/phase6_tests.json','rb').read()).hexdigest())"
 ```
 
-## 5. 评测指标
+> 注：`eval/results/` 的原始 JSON 输出按 `.gitignore` 约定不入库，基线文件保存在作者本地环境；仓库内保留的验收证据为 `eval/results/phase10_final_acceptance.md`（该文件被显式加入版本控制）。
 
-- **Recall@5**：top-5 检索结果是否命中任一 `expected_docs`（检索单元为 `source:file_path`）。
-- **MRR@10**：top-10 中首个命中文档排名的倒数。
-- **可支撑性**：`sufficient/partial/insufficient` 三分类；正例期望非 `insufficient`，负例期望被拒答。
+## 5. 评测指标计算口径
+
+三类测试的边界：**离线测试**（桩或只读，不调用生成 API：`test_phase6/test_fixes/test_domain_consistency/test_phase9_cleanup/test_phase51_regression`）；**运行期测试**（对已启动服务发 HTTP/WS 请求：`verify_runtime_phase7/8`）；**真实 API 评测**（直连 Milvus + DashScope：`eval_retrieval/eval_answer/eval_supportability/eval_phase6_e2e`）。
+
+- **Recall@5**（`eval_retrieval.py`，离线只读检索，不调用 LLM）：对每个参评题取 `retrieve_top_k(k=10)` 的混合检索融合排名（dense IP + sparse IP，WeightedRanker 权重 1.0/0.7，distance 降序）；top-5 内命中任一 `expected_docs`（检索单元 `source:file_path`）记 1，否则 0，按题平均。历史结果 84.2% = 16/19。
+- **MRR@10**（同上）：top-10 内首个命中文档排名 r 的倒数 1/r（未命中记 0），按题平均。历史结果 63.2%。
+- **负例误答率**（`eval_supportability.py`，真实 API）：负例共 **11 个** = 评测集 `no_answer` 5 题（q055–q058 为「主题相关但库缺失」，q059 为域外）+ 脚本内置 6 条补充域外问句（`NEG_EXTRA`）。每题走完整 RAG 链路后由判定器给出 `sufficient/partial/insufficient/gate_rejected`；**误答 = 判定为 `sufficient`**（即未被门控拒绝且被认为依据充分）。历史结果 36.4%（4/11）→ 优化后 9.1%（1/11）。
+- **域外拒答率**（同上）：负例中的域外子集（q059 + 6 条补充问句）被拒绝（`insufficient` 或 `gate_rejected`）的比例，历史结果 100%。
+- **p50 延迟**（`eval_phase6_e2e.py`，真实 API）：固定 7 题子集（q022/q035/q039/q006/q008/q011/q057）× `CANDIDATE_M ∈ {2,3}` 共 **14 次正式计时调用**（另有冷启动预热调用不计入统计）；计时区间为发起 `generate_answer` 到流式输出结束的端到端墙钟时间；p50 用最近秩分位数（`round(p/100*(n-1))` 取序）计算。历史 p50 约 11s，属小样本估计，受网络与模型随机性影响。
+- **可支撑性**：`sufficient/partial/insufficient` 三分类；正例期望非 `insufficient`，负例期望被拒答。判定器为 LLM 判定（`support_judge=true`），存在判定噪声。
 - **引用有效性**：回答中 `[来源k]` 必须落在 `citations` 数量范围内，越界引用会被 `sanitize_citations` 移除。
+
+实验环境（历史评测时点）：Windows + conda `edu_rag`（Python 3.10，CUDA 12.8 GPU），Milvus 2.5.x 集合 `devdocs_final`（约 32,854 条），生成模型 DashScope `qwen-plus`。检索参数：`retrieval_k=10`、`candidate_m=2`、`relevance_threshold=0.2`。原始逐题结果 JSON 不入库（见第 4 节注），仓库内可核对的汇总证据为 `phase10_final_acceptance.md`。
 
 ## 6. Phase 10 验收结果
 
