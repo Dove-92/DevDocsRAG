@@ -9,7 +9,7 @@ D. 有文档时正常构建上下文与 citations（回归）。
 """
 import os, sys, json
 
-PROJECT_ROOT = r"E:\LLM_ubuntu\rag_qa_system"
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 仓库根目录(可移植)
 sys.path.insert(0, PROJECT_ROOT)
 
 from langchain_core.documents import Document
