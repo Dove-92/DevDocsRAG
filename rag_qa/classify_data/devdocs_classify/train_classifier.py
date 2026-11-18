@@ -2,7 +2,7 @@
 """训练 DevDocsRAG 技术文档领域查询分类器(复用 QueryClassifier，独立目录，不覆盖旧模型)。"""
 import os, sys, json, time
 
-PROJECT_ROOT = r"E:\LLM_ubuntu\rag_qa_system"
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))  # 仓库根目录(可移植，不依赖本机绝对路径)
 sys.path.insert(0, PROJECT_ROOT)
 
 from transformers import Trainer, TrainingArguments

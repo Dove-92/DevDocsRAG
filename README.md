@@ -11,19 +11,21 @@ A technical documentation RAG system with hybrid retrieval, reranking, and query
 - 覆盖 4 类技术文档（LangChain / Milvus / BGE·FlagEmbedding / Hugging Face Transformers）
 - 740 篇文档，Markdown/Notebook 解析 + 父子块切分后共 32,854 条子块记录（Milvus `devdocs_final` 集合）
 
-检索与答案质量：
+检索与答案质量（历史评测记录，口径与样本说明见 [测试与评测](docs/testing_and_evaluation.md)）：
 
-| 指标 | 结果 |
-|---|---|
-| 检索评测 Recall@5（19 题） | 84.2% |
-| 检索评测 MRR@10（19 题） | 63.2% |
-| 负例误答率（11 个负例） | 36.4% → 9.1% |
-| 域外问题拒答率 | 100% |
+| 指标 | 结果 | 口径摘要 |
+|---|---|---|
+| Recall@5 | 84.2%（16/19） | 离线只读检索；top-5 命中任一标注文档即记 1，按题平均；19 题为当时已确认标注的子集 |
+| MRR@10 | 63.2% | 同上；top-10 内首个命中文档排名的倒数，按题平均 |
+| 负例误答率 | 36.4%（4/11）→ 9.1%（1/11） | 真实 API 可支撑性评测；11 个负例 = 4 题主题相关但库缺失 + 1 题域外 + 6 条补充域外问句；「误答」= 未被门控拒绝且判定非 insufficient |
+| 域外问题拒答率 | 100% | 同上评测中的域外子集，全部被拒绝或判定依据不足 |
 
 服务与测试：
 
-- 端到端真实调用 p50 约 11s（15 次调用统计）
-- 7 套回归/验收脚本，共 202 项检查通过
+- 端到端真实调用 p50 约 11s：`eval/eval_phase6_e2e.py`，7 个固定子集问题 × candidate_m ∈ {2, 3} 共 14 次正式计时调用（另有预热调用不计入）；p50 为最近秩分位数，小样本估计
+- 7 套回归/验收脚本共 202 项检查通过（49+59+19+25+21+15+14），汇总见 `eval/results/phase10_final_acceptance.md`
+
+> 说明：评测集 `eval/devdocs_eval_set_v1.jsonl` 共 69 题（人工标注），当前已确认且带 `expected_docs` 的检索参评样本为 21 题；上表 19 题为历史评测时点的子集规模。原始逐题结果文件（`eval/results/*.json`）按 `.gitignore` 约定不入库，仓库内保留验收汇总报告；指标受模型随机性与网络影响，复跑数值可能有小幅波动。
 
 ## 系统架构
 
@@ -94,14 +96,19 @@ qa_system.py               集成问答核心：会话历史 + RAG 流式输出
 config.example.ini         配置模板（占位值）
 requirements.txt           Python 依赖
 base/                      配置与日志
-mysql_qa/                  MySQL 连接层
+mysql_qa/                  MySQL 连接层（MySQLClient，conversations 表自动创建）
 rag_qa/core/               RAG 主链路与提示词
-rag_qa/models/             DevDocs 查询分类模型
-rag_qa/data/               文档数据
-eval/                      评测脚本、回归脚本与 results/ 结果
+rag_qa/models/             本地模型目录（权重不入库，需自行下载，见部署文档）
+rag_qa/classify_data/      查询分类训练数据与脚本（train/val/test 272/58/59 条）
+rag_qa/data/               文档语料（LangChain/Transformers 抓取副本，授权见 NOTICE.md）
+rag_qa/edu_document_loaders/  历史命名的文档加载器（Markdown/Notebook 解析）
+rag_qa/edu_text_spliter/      历史命名的文本切分器（父子块切分）
+eval/                      评测/回归脚本（results/ 原始输出不入库，保留验收汇总）
 static/                    前端静态页面
 docs/                      项目文档
 ```
+
+模型权重与 Milvus 集合数据不随仓库分发，从零复现环境的步骤见 [部署与故障排查](docs/setup_and_troubleshooting.md)。
 
 ## 测试与回归
 
@@ -143,4 +150,4 @@ python eval/test_phase51_regression.py
 
 ## License
 
-[MIT](LICENSE)
+本项目自研代码采用 [MIT](LICENSE) 授权。仓库内第三方文档语料（LangChain/Transformers 抓取副本）与运行时下载的模型权重遵循各自原始许可证，**不在 MIT 授权范围内**，详见 [NOTICE.md](NOTICE.md)。

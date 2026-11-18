@@ -12,8 +12,8 @@
 
 ## 2. 安装依赖
 
-```powershell
-conda activate edu_rag
+```bash
+# 建议独立虚拟环境（conda 或 venv 均可）
 pip install -r requirements.txt
 ```
 
@@ -21,8 +21,8 @@ pip install -r requirements.txt
 
 ## 3. 配置
 
-```powershell
-Copy-Item config.example.ini config.ini
+```bash
+cp config.example.ini config.ini        # Windows PowerShell: Copy-Item config.example.ini config.ini
 ```
 
 编辑 `config.ini`，至少修改：
@@ -43,9 +43,8 @@ REDIS_HOST / REDIS_PORT / REDIS_PASSWORD / REDIS_DB
 
 ## 4. 启动
 
-```powershell
-# 验证环境
-& "C:\ProgramData\anaconda3\envs\edu_rag\python.exe" app.py
+```bash
+python app.py
 ```
 
 默认监听 `0.0.0.0:8081`（`HOST`/`PORT` 可覆盖）。访问：
@@ -61,7 +60,7 @@ REDIS_HOST / REDIS_PORT / REDIS_PASSWORD / REDIS_DB
 
 ```powershell
 $r = Invoke-CimMethod -ClassName Win32_Process -MethodName Create -Arguments @{
-    CommandLine = '"C:\path\run.bat"'; CurrentDirectory = 'E:\LLM_ubuntu\rag_qa_system'
+    CommandLine = '"<仓库绝对路径>\run.bat"'; CurrentDirectory = '<仓库绝对路径>'
 }
 ```
 
@@ -71,13 +70,61 @@ $r = Invoke-CimMethod -ClassName Win32_Process -MethodName Create -Arguments @{
 @echo off
 set FOR_DISABLE_CONSOLE_CTRL_HANDLER=1
 set PYTHONIOENCODING=utf-8
-cd /d E:\LLM_ubuntu\rag_qa_system
-"C:\ProgramData\anaconda3\envs\edu_rag\python.exe" app.py > logs\run.log 2>&1
+cd /d <仓库绝对路径>
+"python" app.py > logs\run.log 2>&1
 ```
 
 - 不要用 `Start-Process -RedirectStandardOutput` 直接托管长驻服务，可能出现句柄占用导致进程被拖住/终止。
 
-## 5. 接口速查
+## 5. 模型与知识库复现（从零恢复运行环境）
+
+模型权重与 Milvus 集合数据不随仓库分发（`.gitignore` 排除 `rag_qa/models/`），按以下步骤恢复。
+
+### 5.1 模型下载与目录结构
+
+| 本地目录（相对仓库根） | 模型 | 用途 | 下载来源 |
+| --- | --- | --- | --- |
+| `rag_qa/models/bge-m3` | BAAI/bge-m3 | 稠密+稀疏混合检索向量（`milvus_model.hybrid.BGEM3EmbeddingFunction` 加载） | https://huggingface.co/BAAI/bge-m3 |
+| `rag_qa/models/bge-reranker-large` | BAAI/bge-reranker-large | 检索结果精排（`sentence_transformers.CrossEncoder` 加载） | https://huggingface.co/BAAI/bge-reranker-large |
+| `rag_qa/models/bert-base-chinese` | google-bert/bert-base-chinese | 查询分类基座模型 | https://huggingface.co/google-bert/bert-base-chinese |
+| `rag_qa/models/bert_query_classifier_devdocs` | 本项目微调分类模型 | 区分「通用知识 / 专业咨询」查询（`QueryClassifier` 加载） | 无公开下载；用下述训练脚本产出 |
+
+下载方式（任选其一）：`huggingface-cli download <模型ID> --local-dir rag_qa/models/<目录名>`，或从 ModelScope 镜像下载同名模型。四个目录需齐全，缺任一项启动即报错。
+
+微调分类模型复现：
+
+```bash
+python rag_qa/classify_data/devdocs_classify/train_classifier.py
+```
+
+- 训练数据已入库：`train.jsonl` 272 条、`val.jsonl` 58 条、`test.jsonl` 59 条（另有 `train_aug*.jsonl` 增广数据与 `generate_data.py` 生成脚本）。
+- 脚本以仓库根为基准定位数据与输出目录（可移植路径），基座为 `bert-base-chinese`，产出写入 `rag_qa/models/bert_query_classifier_devdocs`。
+- 训练需 GPU 环境（CPU 可运行但很慢）；仓库内未保存历史训练准确率记录，复现时以脚本运行输出的验证集指标为准。
+
+### 5.2 服务配置与初始化
+
+- **MySQL**：创建数据库 `subjects_kg`（或修改 `[mysql] database`）。`conversations` 会话历史表由 `mysql_qa/db/mysql_client.py` 在首次连接时自动创建，无需手工建表。
+- **Milvus**：启动 Milvus 2.5.x，创建数据库 `itcast`（或修改 `[milvus] database_name`）。集合 `devdocs_final` 在知识库构建时由 `VectorStore` 自动创建（含 dense/sparse 双向量字段与 IP 度量）。
+- **Redis**：Phase 9 后已无运行时使用，`[redis]` 配置段仅为历史兼容保留，无需安装 Redis。
+- **DashScope**：在 `[llm]` 填入 API Key（默认模型 `qwen-plus`）。
+
+### 5.3 知识库构建
+
+在线服务使用的生产集合为 `devdocs_final`（约 32,854 条子块记录），入库链路为：
+
+1. `rag_qa/edu_document_loaders/`：解析 Markdown/Notebook 文档（历史命名模块，保留以兼容导入）。
+2. `rag_qa/edu_text_spliter/` + `rag_qa/core/document_processor.py`：父子块切分（`parent_chunk_size=1200`、`child_chunk_size=300`、`chunk_overlap=50`，见 `config.example.ini`）。
+3. `VectorStore.add_documents(documents)`（`rag_qa/core/vector_store.py`）：BGE-M3 生成 dense+sparse 向量并写入 Milvus。
+
+语料来源与授权见 [NOTICE.md](../NOTICE.md)：仓库内含 LangChain（113 个文件）与 Transformers（198 个文件）文档抓取副本；Milvus 与 BGE/FlagEmbedding 语料未入库，需自行从上游仓库获取后按同一链路入库。
+
+> 注意：`rag_qa/core/build_knowledge_base.py` 是独立的教学示例脚本，写入的是 `edu_rag_exam_hybrid` 集合且含 `drop_collection` 逻辑，**不是生产集合 `devdocs_final` 的构建器**，请勿对生产库运行。仓库未包含一键重建 `devdocs_final` 的独立脚本；从零重建需按上述链路自行组织入库脚本（调用 `VectorStore.add_documents`），此步骤本次未实际执行验证。
+
+### 5.4 启动验证
+
+完成上述步骤后 `python app.py`，访问 `/health` 应返回正常；再用 `eval/` 下运行期脚本（见 [测试与评测](testing_and_evaluation.md)）做回归验证。
+
+## 6. 接口速查
 
 | 方法 | 路径 | 说明 |
 | --- | --- | --- |
@@ -90,7 +137,7 @@ cd /d E:\LLM_ubuntu\rag_qa_system
 | POST | `/api/query` | 非流式入口；非问候返回转流式提示 |
 | WS | `/api/stream` | 流式问答 |
 
-## 6. 常见问题
+## 7. 常见问题
 
 | 症状 | 排查 |
 | --- | --- |
@@ -103,14 +150,14 @@ cd /d E:\LLM_ubuntu\rag_qa_system
 | 端口被占用 | 使用 `PORT` 环境变量换端口；`Get-NetTCPConnection -LocalPort 8081` 查占用进程 |
 | 集成知识库脚本报错 | `build_knowledge_base.py` 为独立示例，会写入 `edu_rag_exam_hybrid`，与在线服务无关 |
 
-## 7. 停止服务
+## 8. 停止服务
 
 ```powershell
 $pids = (Get-NetTCPConnection -LocalPort 8081 -State Listen).OwningProcess
 Stop-Process -Id $pids -Force
 ```
 
-## 8. 交付清单排除项
+## 9. 交付清单排除项
 
 - `config.ini`、`config.ini*` 备份（含 `config.ini.phase6bak`）
 - `*.phase6bak`、`*.bak`、`_backup_*/`、`logs/`、`__pycache__/`、`.idea/`

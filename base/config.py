@@ -1,5 +1,6 @@
 ﻿# 该脚本用于:配置文件管理.
 import os                   # 导入路径操作模块
+import ast                  # 安全解析配置中的字面量列表(替代 eval，避免执行任意表达式)
 import configparser         # 导入配置文件解析库，解析INI格式的配置文件.
 
 # todo 1.配置文件路径计算.
@@ -96,7 +97,7 @@ class Config():
 
         # 应用配置
         # 有效来源列表
-        self.VALID_SOURCES = eval(
+        self.VALID_SOURCES = ast.literal_eval(
             self.config.get('app', 'valid_sources', fallback='["langchain", "milvus", "bge", "transformers"]'))
         # 客服电话
         self.CUSTOMER_SERVICE_PHONE = self.config.get('app', 'customer_service_phone', fallback='12345678')
@@ -109,7 +110,7 @@ class Config():
 
 if __name__ == '__main__':
     # 绝对路径.
-    # config_file_path=r'E:\LLM_ubuntu\integrated_qa_system\config.ini'
+    # config_file_path=r'<仓库绝对路径>/config.ini'  # 示例：显式指定配置文件路径
     # 相对路径.
     config_file_path='../config.ini'
     conf = Config(config_file_path)

@@ -11,11 +11,8 @@ from rag_qa.core.query_classifier import QueryClassifier    # 导入查询分类
 from rag_qa.core.strategy_selector import StrategySelector  # 导入策略选择器 -> 专业咨询的情况下用哪种检索策略(例如:直接检索.
 from rag_qa.core.vector_store import VectorStore            # 导入向量数据库对象 ->存储和检索文档向量，
 
-# 优化1:新增导包内容
-from transformers import BertTokenizer, BertModel
-local_model_path=r'E:\LLM_ubuntu\rag_qa_system\rag_qa\models\bert-base-chinese'
-tokenizer = BertTokenizer.from_pretrained(local_model_path)
-model=BertModel.from_pretrained(local_model_path)
+# 说明:此处曾有一段导入期加载 bert-base-chinese 的代码(硬编码本机路径，且 tokenizer/model 在全仓库均未被引用)，
+# 属于历史遗留死代码，会导致其他机器导入本模块即失败，已于公开展示优化时移除。查询分类模型由 QueryClassifier 按需加载。
 from openai import OpenAI
 
 # todo 2.配置项目路径  确保程序能正确导入其它目录的模块.
