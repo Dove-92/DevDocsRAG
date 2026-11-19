@@ -12,7 +12,9 @@
 
 说明：
 
-- 上游许可证核验方式：直接读取上游仓库 LICENSE 文件（langchain-ai/docs 为 MIT；huggingface/transformers 为 Apache-2.0）。抓取副本未逐文件保留上游版权头，**再分发时应遵守上游许可证的署名与许可文本保留要求**；如需严格合规分发，建议随附上述上游 LICENSE 全文或改为运行时自行抓取。
+- 上游许可证核验方式：直接读取上游仓库 LICENSE 文件（langchain-ai/docs 为 MIT；huggingface/transformers 为 Apache-2.0）。两份上游 LICENSE 全文已随附于本仓库 `licenses/` 目录：[licenses/langchain-docs-MIT.txt](licenses/langchain-docs-MIT.txt)、[licenses/transformers-Apache-2.0.txt](licenses/transformers-Apache-2.0.txt)。
+- 合规依据与现状：MIT 要求在所有副本或实质性部分中保留版权声明与许可文本，随附 LICENSE 全文即满足该要求；Apache-2.0 第 4 条要求再分发时附带许可证副本、保留源形式中的版权/专利/商标/归属声明，修改过的文件需显著标注变更，上游若含 NOTICE 文件需随附其归属声明（经核验 huggingface/transformers 仓库根目录无 NOTICE 文件）。本仓库语料为未修改的抓取副本，未逐文件保留上游版权头；随附 LICENSE 全文后满足许可文本保留要求。若需更严格的逐文件合规，可改为运行时自行从上游抓取语料（仓库内副本可删除），由使用者直接遵循上游许可。
+- 授权范围澄清：本仓库根目录 MIT License 仅覆盖本项目自研代码；`rag_qa/data/` 下第三方语料仍分别遵循 MIT（LangChain）与 Apache-2.0（Transformers），`licenses/` 内文本为上游许可证的忠实副本，不构成对本仓库 MIT 授权范围的任何扩大或变更。
 - Milvus 与 BGE/FlagEmbedding 文档语料**不在本仓库中**（`rag_qa/data/bge_data/` 已被 `.gitignore` 排除，Milvus 语料未入库）。知识库中这两类来源的数据需使用者自行从上游获取：Milvus 文档（https://github.com/milvus-io/milvus-docs ，Apache-2.0）、FlagEmbedding 文档（https://github.com/FlagOpen/FlagEmbedding ，MIT）。
 - 文档语料仅用于检索问答演示与研究学习，不代表本项目对上游内容主张任何权利。
 
